@@ -3,3 +3,8 @@
 - Thasmini
 - Luk
 - Sky
+
+# ToDo-List
+- Personas
+- User Stories
+- Dokumentation
