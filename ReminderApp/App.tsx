@@ -14,6 +14,7 @@ export default function App() {
       backgroundColor: theme.colors.background,
       alignItems: "center",
       justifyContent: "center",
+      flexDirection: 'column'
     },
   });
 
@@ -21,7 +22,7 @@ export default function App() {
     <Provider theme={theme}>
       <View style={styles.container}>
         <Text>Open up my dudes!</Text>
-        <View>
+        <View style={{flexDirection:'row', flex: 1}}>
           <ReminderElement/>
         </View>
         <StatusBar style="auto" />
