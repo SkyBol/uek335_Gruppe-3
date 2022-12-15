@@ -1,11 +1,31 @@
+import BottomSheet, { BottomSheetView } from '@gorhom/bottom-sheet';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useRef, useState } from 'react';
+import { Button, StyleSheet, Text, View } from 'react-native';
 
 export default function App() {
+  const sheetRef = useRef<BottomSheet>(null);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const snapPoints = ["97%"]
+
   return (
     <View style={styles.container}>
-      <Text>Open up my dudes!</Text>
+      <Button onPress={() => setIsOpen(!isOpen)} title="Open" />
       <StatusBar style="auto" />
+      {isOpen && (
+        <BottomSheet
+          ref={sheetRef}
+          enablePanDownToClose={true}
+          snapPoints={snapPoints}
+          onChange={(index) => {console.log(index)}}
+        >
+          <BottomSheetView>
+            <View style={{}}>
+              <Text>AA</Text>
+            </View>
+          </BottomSheetView>
+        </BottomSheet>
+      )}
     </View>
   );
 }
