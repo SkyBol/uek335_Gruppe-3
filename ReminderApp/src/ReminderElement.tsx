@@ -18,7 +18,8 @@ function ReminderElement() {
     <View style={{flex: 1, flexDirection: 'column', padding: "3%"}}>
       {reminderList && reminderList.map((reminderElement : ReminderElement) => {
         return (
-        <Card style={{marginTop: "3%", flexDirection: 'row'}}>
+        <Card style={{marginTop: "3%"}}>
+          <View style={{flexDirection: 'row', justifyContent: 'space-between', marginRight: '5%'}}>
           <Card.Content style={{borderColor: "red", borderWidth: 1}}>
             <View style={{flexDirection: 'row'}}>
               <Text variant='displayLarge' style={{color: theme.colors.onPrimaryContainer}}>{moment(reminderElement.date).format("DD.MM")}</Text>
@@ -31,10 +32,10 @@ function ReminderElement() {
               }
             </View>
           </Card.Content>
-          <Switch></Switch>
+          <Switch thumbColor={theme.colors.onPrimary} trackColor={{true: theme.colors.primary, false: 'grey'}} value={reminderElement.isActive} onValueChange={() => {console.log(theme.colors.primary)}}/>
+          </View>
         </Card>)
       })}
-    
     </View>
   )
 }

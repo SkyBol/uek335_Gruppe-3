@@ -7,7 +7,7 @@ const MyComponent = () => {
 
   const onToggleSwitch = () => setIsSwitchOn(!isSwitchOn);
 
-  return <View><Switch value={isSwitchOn} onValueChange={onToggleSwitch} /></View>;
+  return <Switch value={isSwitchOn} onValueChange={onToggleSwitch} />;
 };
 
 export default MyComponent;
