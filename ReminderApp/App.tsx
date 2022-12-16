@@ -1,14 +1,11 @@
-import BottomSheet, { BottomSheetView } from "@gorhom/bottom-sheet";
 import { StatusBar } from "expo-status-bar";
-import { useRef, useState } from "react";
-import { Button, StyleSheet, View } from "react-native";
-import { MD3DarkTheme, Provider, Text } from "react-native-paper";
-import ReminderElement from "./src/ReminderElement";
+import { useState } from "react";
+import { StyleSheet, View } from "react-native";
+import { Button, MD3DarkTheme, Provider, Text } from "react-native-paper";
+import PopUpEditor from "./src/components/organism/PopUpEditor";
 
 export default function App() {
-  const sheetRef = useRef<BottomSheet>(null);
-  const [isOpen, setIsOpen] = useState<boolean>(false);
-  const snapPoints = ["97%"]
+  const [isEditScreenOpen, setIsEditScreenOpen] = useState<boolean>(false);
 
   const theme = {
     ...MD3DarkTheme,
@@ -26,27 +23,19 @@ export default function App() {
   return (
     <Provider theme={theme}>
       <View style={styles.container}>
-        <Text>Open up my dudes!</Text>
         <View>
-          <ReminderElement/>
+          <Button
+            onPress={() => {setIsEditScreenOpen(!isEditScreenOpen)}}
+          >
+            <Text>Open Ediotr</Text>
+          </Button>
         </View>
-        <Button onPress={() => setIsOpen(!isOpen)} title="Open" />
+        <PopUpEditor 
+          open={isEditScreenOpen} 
+          setOpen={setIsEditScreenOpen} 
+        />
         <StatusBar style="auto" />
       </View>
-      {isOpen && (
-        <BottomSheet
-          ref={sheetRef}
-          enablePanDownToClose={true}
-          snapPoints={snapPoints}
-          onChange={(index) => {console.log(index)}}
-        >
-          <BottomSheetView>
-            <View style={{}}>
-              <Text>AA</Text>
-            </View>
-          </BottomSheetView>
-        </BottomSheet>
-      )}
     </Provider>
   );
 }
