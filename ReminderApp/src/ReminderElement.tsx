@@ -5,8 +5,8 @@ import { MD3DarkTheme, Surface, useTheme, Text, Card, Title, Paragraph, Button} 
 
 function ReminderElement() {
 
-  const reminderElement1 : ReminderElement = {date: new Date('2016-01-02T00:00:00'), isActive: true, repeatUntil: new Date('2016-02-02T00:00:00')}
-  const reminderElement2 : ReminderElement = {date: new Date('2016-01-05T00:00:00'), isActive: false, repeatUntil: new Date('2016-01-02T00:00:00')}
+  const reminderElement1 : ReminderElement = {date: new Date('2016-01-02T00:00:00'), isActive: true, repeatUntil: new Date('2016-02-02T00:00:00'), isSelected: false}
+  const reminderElement2 : ReminderElement = {date: new Date('2016-01-05T00:00:00'), isActive: false, repeatUntil: new Date('2016-01-02T00:00:00'), isSelected: false}
 
   const [reminderList, setReminderList] = React.useState<ReminderElement[]>([reminderElement1,reminderElement2]);
 
@@ -26,7 +26,7 @@ function ReminderElement() {
         const repeatAmount = reminderElement.repeatUntil.getMonth() - reminderElement.date.getMonth();
 
         return (
-        <Card style={{marginTop: "3%"}}>
+        <Card style={{margin: "3%, 3%, 0%, 3%"}}>
           <View style={{padding: '5%', flexDirection: 'row', justifyContent: 'space-between'}}>
             <Card.Content>
               <View style={{flexDirection: 'row'}}>

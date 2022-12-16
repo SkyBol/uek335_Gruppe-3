@@ -22,9 +22,11 @@ export default function App() {
     <Provider theme={theme}>
       <View style={styles.container}>
         <Text>Open up my dudes!</Text>
-        <View style={{flexDirection:'row', flex: 1}}>
-          <ReminderElement/>
+        <View style={{flexDirection:'column', flex: 1}}>
+            <ReminderElement/>
+            <ReminderElement/>
         </View>
+        
         <StatusBar style="auto" />
       </View>
     </Provider>
