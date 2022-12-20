@@ -20,9 +20,13 @@ function EditReminderElement() {
         return (
         <Card style={{marginTop: "3%"}}>
           <View style={{padding: '5%', flexDirection: 'row', justifyContent: 'space-between'}}>
-          <View style={{justifyContent: 'center', paddingRight: Platform.OS === "ios" ? 0 : '10%'}}>
+          <View style={{justifyContent: 'center', paddingLeft: Platform.OS === "ios" ? 0 : '5%'}}>
               <Checkbox 
-                status='checked'
+                status={editReminderElement.isSelected ? 'checked' : 'unchecked'}
+                onPress={() => {
+                  editReminderList[index].isSelected = !editReminderElement.isSelected;
+                  setEditReminderList([...editReminderList]);
+                }}
               />
             </View>
             <Card.Content>

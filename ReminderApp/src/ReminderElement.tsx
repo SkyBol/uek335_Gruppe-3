@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import moment from 'moment';
-import { Platform, StyleSheet, Switch, View } from "react-native";
+import { Dimensions, Platform, StyleSheet, Switch, View } from "react-native";
 import { MD3DarkTheme, Surface, useTheme, Text, Card, Title, Paragraph, Button} from 'react-native-paper';
 
 function ReminderElement() {
@@ -12,7 +12,7 @@ function ReminderElement() {
 
   const theme = useTheme();
   return (
-    <View style={{flex: 1, flexDirection: 'column', padding: "3%"}}>
+    <View style={{flex: 1, flexDirection: 'column', padding: '3%'}}>
       {reminderList && reminderList.map((reminderElement : ReminderElement, index : number) => {
 
         let color = {...theme.colors};
@@ -26,7 +26,7 @@ function ReminderElement() {
         const repeatAmount = reminderElement.repeatUntil.getMonth() - reminderElement.date.getMonth();
 
         return (
-        <Card style={{margin: "3%, 3%, 0%, 3%"}}>
+        <Card style={{marginTop: "3%"}}>
           <View style={{padding: '5%', flexDirection: 'row', justifyContent: 'space-between'}}>
             <Card.Content>
               <View style={{flexDirection: 'row'}}>
