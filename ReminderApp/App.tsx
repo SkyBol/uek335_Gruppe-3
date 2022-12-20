@@ -1,8 +1,15 @@
 import { StatusBar } from "expo-status-bar";
+<<<<<<< HEAD
 import { useState } from "react";
 import { StyleSheet, View } from "react-native";
-import { Button, MD3DarkTheme, Provider, Text } from "react-native-paper";
+import { MD3DarkTheme, Provider, Text } from "react-native-paper";
 import PopUpEditor from "./src/components/organism/PopUpEditor";
+=======
+import { Dimensions, StyleSheet, View } from "react-native";
+import { MD3DarkTheme, Provider, Text, useTheme } from "react-native-paper";
+import EditReminderElement from "./src/EditReminderElement";
+import ReminderElement from "./src/ReminderElement";
+>>>>>>> 6b71b095d4234fd2a13e7ebd1f50e94e4bfe798a
 
 export default function App() {
   const [isEditScreenOpen, setIsEditScreenOpen] = useState<boolean>(false);
@@ -10,6 +17,8 @@ export default function App() {
   const theme = {
     ...MD3DarkTheme,
   }
+
+  const windowWidth = Dimensions.get('window').width;
 
   const styles = StyleSheet.create({
     container: {
@@ -26,12 +35,8 @@ export default function App() {
       <View style={styles.container}>
         <Text>Open up my dudes!</Text>
         <View style={{flexDirection:'row', flex: 1}}>
-          <Button
-            onPress={() => {setIsEditScreenOpen(!isEditScreenOpen)}}
-          >
-            <Text>Open Ediotr</Text>
-          </Button>
           <ReminderElement/>
+          <EditReminderElement/>
         </View>
         <PopUpEditor 
           open={isEditScreenOpen} 

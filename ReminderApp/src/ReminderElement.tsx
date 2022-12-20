@@ -1,18 +1,18 @@
 import React, { useEffect } from 'react'
 import moment from 'moment';
-import { Platform, StyleSheet, Switch, View } from "react-native";
+import { Dimensions, Platform, StyleSheet, Switch, View } from "react-native";
 import { MD3DarkTheme, Surface, useTheme, Text, Card, Title, Paragraph, Button} from 'react-native-paper';
 
 function ReminderElement() {
 
-  const reminderElement1 : ReminderElement = {date: new Date('2016-01-02T00:00:00'), isActive: true, repeatUntil: new Date('2016-02-02T00:00:00')}
-  const reminderElement2 : ReminderElement = {date: new Date('2016-01-05T00:00:00'), isActive: false, repeatUntil: new Date('2016-01-02T00:00:00')}
+  const reminderElement1 : ReminderElement = {date: new Date('2016-01-02T00:00:00'), isActive: true, repeatUntil: new Date('2016-02-02T00:00:00'), isSelected: false}
+  const reminderElement2 : ReminderElement = {date: new Date('2016-01-05T00:00:00'), isActive: false, repeatUntil: new Date('2016-01-02T00:00:00'), isSelected: false}
 
   const [reminderList, setReminderList] = React.useState<ReminderElement[]>([reminderElement1,reminderElement2]);
 
   const theme = useTheme();
   return (
-    <View style={{flex: 1, flexDirection: 'column', padding: "3%"}}>
+    <View style={{flex: 1, flexDirection: 'column', padding: '3%'}}>
       {reminderList && reminderList.map((reminderElement : ReminderElement, index : number) => {
 
         let color = {...theme.colors};
