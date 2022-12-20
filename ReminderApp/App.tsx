@@ -17,18 +17,21 @@ export default function App() {
       backgroundColor: theme.colors.background,
       alignItems: "center",
       justifyContent: "center",
+      flexDirection: 'column'
     },
   });
 
   return (
     <Provider theme={theme}>
       <View style={styles.container}>
-        <View>
+        <Text>Open up my dudes!</Text>
+        <View style={{flexDirection:'row', flex: 1}}>
           <Button
             onPress={() => {setIsEditScreenOpen(!isEditScreenOpen)}}
           >
             <Text>Open Ediotr</Text>
           </Button>
+          <ReminderElement/>
         </View>
         <PopUpEditor 
           open={isEditScreenOpen} 
