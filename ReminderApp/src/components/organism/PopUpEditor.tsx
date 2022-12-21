@@ -1,7 +1,7 @@
 import BottomSheet from "@gorhom/bottom-sheet";
 import { useEffect, useRef } from "react";
-import { View } from "react-native";
-import { Button, useTheme } from "react-native-paper";
+import { Platform, Switch, View } from "react-native";
+import { Button, Text, useTheme } from "react-native-paper";
 import Picker from "../../Picker";
 import DatePicker from "../DatePicker";
 
@@ -27,10 +27,11 @@ const PopUpEditor = ({editingElement, setEditingElement, reminders} : props) => 
       setEditingElement(null);
     }
     const save = () => {
-      
+      // TODO
+      cancel();
     }
 
-    const setTimeEditigElement = (newTime : Date) => {
+    const setTimeForEditigElement = (newTime : Date) => {
       setEditingElement({...editingElement, date: newTime});
     }
 
@@ -39,9 +40,13 @@ const PopUpEditor = ({editingElement, setEditingElement, reminders} : props) => 
           ref={sheetRef}
           enablePanDownToClose={true}
           snapPoints={["97%"]}
+          onClose={save}
+          backgroundStyle={{
+            backgroundColor: theme.colors.background
+          }}
         >
           { editingElement && (
-            <View>
+            <View style={{justifyContent: 'center'}}>
               <View style={{padding: '5%', flexDirection: 'row', justifyContent: 'space-between'}}>
                   <Button onPress={cancel}>Cancel</Button>
                   <Button onPress={save}>Done</Button>
@@ -49,9 +54,23 @@ const PopUpEditor = ({editingElement, setEditingElement, reminders} : props) => 
               <Picker 
                 mode={"time"} 
                 time={editingElement.date} 
-                setTime={setTimeEditigElement} 
+                setTime={setTimeForEditigElement} 
               />
-              <DatePicker />
+              <Text variant='bodyLarge'>Repeat</Text>
+              <Switch 
+                style={{ 
+                  transform: [{ scaleX: Platform.OS === "ios" ? 1 : 1.75 }, { scaleY: Platform.OS === "ios" ? 1 : 1.75 }],
+                }}
+                thumbColor={theme.colors.onPrimary} 
+                trackColor={{true: theme.colors.primary, false: theme.colors.surfaceVariant}} 
+                value={editingElement.isActive} 
+                onValueChange={() => {
+                  setEditingElement({...editingElement, isActive: !editingElement.isActive})
+                }}
+              />
+              <DatePicker 
+                
+              />
             </View>
           )}
         </BottomSheet>
