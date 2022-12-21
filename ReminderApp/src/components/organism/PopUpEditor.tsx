@@ -1,71 +1,68 @@
 import BottomSheet from "@gorhom/bottom-sheet";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { View } from "react-native";
 import { Button, useTheme } from "react-native-paper";
 import Picker from "../../Picker";
-import StorageService from "../../service/StorageService";
+import DatePicker from "../DatePicker";
 
 type props = {
-    open : boolean;
-    setOpen : (open : boolean) => void;
     editingElement : ReminderElement | null;
     setEditingElement : (editingElement : ReminderElement) => void;
     reminders : ReminderElement[];
 }
 
-const PopUpEditor = ({open, setOpen, editingElement, setEditingElement, reminders} : props) => {
+const PopUpEditor = ({editingElement, setEditingElement, reminders} : props) => {
     const sheetRef = useRef<BottomSheet>(null);
-    const [time, setTime] = useState<Date>(new Date());
     const theme = useTheme();
 
     useEffect(() => {
-      if (open) {
+      if (editingElement) {
         sheetRef.current.expand();
       } else {
         sheetRef.current.close();
-        if (editingElement) {
-          setEditingElement(null);
-        }
-      }
-    }, [open]);
-
-    useEffect(() => {
-      if (editingElement) {
-        setOpen(true);
-      } else if (open) {
-        setOpen(false);
       }
     }, [editingElement])
 
     const cancel = () => {
-      setOpen(false);
+      setEditingElement(null);
     }
     const save = () => {
-      let newReminders : ReminderElement[] = [...reminders];
-      if (newReminders.indexOf(editingElement) === -1) {
-        StorageService.save([...newReminders, editingElement]);
-      } else {
-        
-      }
+      // TODO
+      cancel();
+    }
+
+    const setTimeForEditigElement = (newTime : Date) => {
+      setEditingElement({...editingElement, date: newTime});
     }
 
     return (
         <BottomSheet
           ref={sheetRef}
           enablePanDownToClose={true}
-          snapPoints={["97%"]}
+          snapPoints={[1, "97%"]}
+          onClose={save}
+          backgroundStyle={{
+            backgroundColor: theme.colors.background
+          }}
         >
-          <View>
-            <View style={{padding: '5%', flexDirection: 'row', justifyContent: 'space-between'}}>
-                <Button onPress={cancel}>Cancel</Button>
-                <Button onPress={save}>Done</Button>
+          { editingElement && (
+            <View style={{justifyContent: 'center'}}>
+              <View style={{padding: '5%', flexDirection: 'row', justifyContent: 'space-between'}}>
+                  <Button onPress={cancel}>Cancel</Button>
+                  <Button onPress={save}>Done</Button>
+              </View>
+              <Picker 
+                mode={"time"} 
+                time={editingElement.date} 
+                setTime={setTimeForEditigElement} 
+              />
+              
+              <DatePicker 
+                editingElement={editingElement} 
+                setEditingElement={setEditingElement} 
+              />
             </View>
-            <Picker 
-              mode={"time"} 
-              time={time} 
-              setTime={setTime} 
-            />
-          </View>
+          )}
         </BottomSheet>
     )
 }

@@ -1,6 +1,8 @@
 import DateTimePicker from '@react-native-community/datetimepicker';
+import moment from 'moment';
 import React, { useState } from "react";
-import { Button, Platform, View } from "react-native";
+import { Platform, View } from "react-native";
+import { Button, useTheme } from 'react-native-paper';
 
 
 type props = {
@@ -11,20 +13,32 @@ type props = {
 
 const Picker = ({mode, time, setTime} : props) => {
     const isIOS = Platform.OS === 'ios';
-    const [show, setShow] = useState<boolean>(isIOS);
+    const [show, setShow] = useState<boolean>(false);
+    const theme = useTheme();
 
-    const onChange = (event, selectedDate) => {
+    const onChange = (_e, selectedDate) => {
         setTime(selectedDate);
         setShow(false)
     };
 
   return (
     <View>
-        {!isIOS && <Button onPress={() => setShow(!show)} title="Open" />}
-        {show && (
+        {!isIOS && 
+            <View>
+                <Button 
+                    onPress={() => setShow(!show)} 
+                    style={{
+                        backgroundColor: theme.colors.primaryContainer
+                    }}
+                >
+                    { moment(time).format("hh:mm") }
+                </Button>
+            </View>
+        }
+        {(show || isIOS) && (
             <DateTimePicker
                 testID="dateTimePicker"
-                display={'spinner'} // Is working for both IOS and Android
+                display={isIOS ? 'spinner' : 'default'}
                 value={time}
                 mode={mode}
                 is24Hour={true}

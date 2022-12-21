@@ -1,15 +1,12 @@
 import { StatusBar } from "expo-status-bar";
 import { useEffect, useState } from "react";
 import { StyleSheet, View } from "react-native";
-import { Appbar, MD3DarkTheme, Provider, Text } from "react-native-paper";
-import PopUpEditor from "./src/components/organism/PopUpEditor";
-import ReminderElement from "./src/ReminderElement";
+import { Appbar, MD3DarkTheme, Provider } from "react-native-paper";
 import ReminderList from "./src/ReminderList";
 import Header from "./src/Header";
 import StorageService from "./src/service/StorageService";
 
 export default function App() {
-  const [isEditScreenOpen, setIsEditScreenOpen] = useState<boolean>(false);
   const [editingElement, setEditingElement] = useState<ReminderElement | null>(null);
   const [isEditing, setEditing] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
