@@ -6,7 +6,6 @@ import PopUpEditor from "./src/components/organism/PopUpEditor";
 import ReminderElement from "./src/ReminderElement";
 
 export default function App() {
-  const [isEditScreenOpen, setIsEditScreenOpen] = useState<boolean>(false);
   const [editingElement, setEditingElement] = useState<ReminderElement | null>(null);
 
   const theme = {
@@ -39,8 +38,6 @@ export default function App() {
         <StatusBar style="auto" />
       </View>
       <PopUpEditor 
-          open={isEditScreenOpen}
-          setOpen={setIsEditScreenOpen}
           editingElement={editingElement}
           setEditingElement={setEditingElement}
           reminders={[]}
