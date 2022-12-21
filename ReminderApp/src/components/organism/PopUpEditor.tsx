@@ -39,7 +39,7 @@ const PopUpEditor = ({editingElement, setEditingElement, reminders} : props) => 
         <BottomSheet
           ref={sheetRef}
           enablePanDownToClose={true}
-          snapPoints={["97%"]}
+          snapPoints={[1, "97%"]}
           onClose={save}
           backgroundStyle={{
             backgroundColor: theme.colors.background
@@ -56,20 +56,23 @@ const PopUpEditor = ({editingElement, setEditingElement, reminders} : props) => 
                 time={editingElement.date} 
                 setTime={setTimeForEditigElement} 
               />
-              <Text variant='bodyLarge'>Repeat</Text>
-              <Switch 
-                style={{ 
-                  transform: [{ scaleX: Platform.OS === "ios" ? 1 : 1.75 }, { scaleY: Platform.OS === "ios" ? 1 : 1.75 }],
-                }}
-                thumbColor={theme.colors.onPrimary} 
-                trackColor={{true: theme.colors.primary, false: theme.colors.surfaceVariant}} 
-                value={editingElement.isActive} 
-                onValueChange={() => {
-                  setEditingElement({...editingElement, isActive: !editingElement.isActive})
-                }}
-              />
+              <View>
+                <Text variant='bodyLarge'>Repeat</Text>
+                <Switch 
+                  style={{ 
+                    transform: [{ scaleX: Platform.OS === "ios" ? 1 : 1.75 }, { scaleY: Platform.OS === "ios" ? 1 : 1.75 }],
+                  }}
+                  thumbColor={theme.colors.onPrimary} 
+                  trackColor={{true: theme.colors.primary, false: theme.colors.surfaceVariant}} 
+                  value={editingElement.isActive} 
+                  onValueChange={() => {
+                    setEditingElement({...editingElement, isActive: !editingElement.isActive})
+                  }}
+                />
+              </View>
               <DatePicker 
-                
+                editingElement={editingElement} 
+                setEditingElement={setEditingElement} 
               />
             </View>
           )}

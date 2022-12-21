@@ -1,7 +1,8 @@
 import DateTimePicker from '@react-native-community/datetimepicker';
+import moment from 'moment';
 import React, { useState } from "react";
-import { Button, Platform, View } from "react-native";
-import { useTheme } from 'react-native-paper';
+import { Platform, View } from "react-native";
+import { Button, useTheme } from 'react-native-paper';
 
 
 type props = {
@@ -15,19 +16,26 @@ const Picker = ({mode, time, setTime} : props) => {
     const [show, setShow] = useState<boolean>(false);
     const theme = useTheme();
 
-    const onChange = (event, selectedDate) => {
+    const onChange = (_e, selectedDate) => {
         setTime(selectedDate);
         setShow(false)
     };
 
   return (
-    <View
-        style={{
-            backgroundColor: theme.colors.primary
-        }}
-    >
-        {!isIOS && <Button onPress={() => setShow(!show)} title="Open" />}
-        {show || isIOS && (
+    <View>
+        {!isIOS && 
+            <View>
+                <Button 
+                    onPress={() => setShow(!show)} 
+                    style={{
+                        backgroundColor: theme.colors.primaryContainer
+                    }}
+                >
+                    { moment(time).format("hh:mm") }
+                </Button>
+            </View>
+        }
+        {(show || isIOS) && (
             <DateTimePicker
                 testID="dateTimePicker"
                 display={isIOS ? 'spinner' : 'default'}
