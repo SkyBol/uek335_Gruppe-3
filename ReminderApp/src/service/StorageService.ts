@@ -7,8 +7,9 @@ const StorageService = {
         await AsyncStorage.setItem(storageKey, JSON.stringify(reminders));
     },
     get: async () : Promise<ReminderElement[]> => {
-        let reminders : string = await AsyncStorage.getItem(storageKey);
-        return JSON.parse(reminders);
+        const reminders : string = await AsyncStorage.getItem(storageKey);
+        let remindersParsed : ReminderElement[] = JSON.parse(reminders);
+        return remindersParsed.map((elem) => {return {...elem, date: new Date(elem.date), repeatUntil: new Date(elem.repeatUntil)}});
     }
 }
 
