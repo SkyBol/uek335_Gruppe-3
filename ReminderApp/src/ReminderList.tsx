@@ -26,7 +26,6 @@ function ReminderList({setEditingElement,setReminderList,reminderList,isEditing}
   useEffect(() => {
     setReminderList(reminderList.map((elem) => {return {...elem, isSelected: false}}));
   }, [isEditing])
-  const theme = useTheme();
   return (
     <ScrollView style={{ flex: 1, flexDirection: "column", padding: "3%", paddingBottom: "0%"}}>
       {reminderList &&

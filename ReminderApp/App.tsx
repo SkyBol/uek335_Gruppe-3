@@ -5,33 +5,46 @@ import { Appbar, MD3DarkTheme, Provider, Text } from "react-native-paper";
 import PopUpEditor from "./src/components/organism/PopUpEditor";
 import ReminderElement from "./src/ReminderElement";
 import ReminderList from "./src/ReminderList";
+import Header from "./src/Header";
 import StorageService from "./src/service/StorageService";
 
 export default function App() {
   const [isEditScreenOpen, setIsEditScreenOpen] = useState<boolean>(false);
   const [editingElement, setEditingElement] = useState<ReminderElement | null>(null);
   const [isEditing, setEditing] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true);
 
   const theme = {
     ...MD3DarkTheme,
   }
 
   //Only for testing -> remove after
-  const reminderListInit: ReminderElement[] = [{date: new Date('2016-01-02T00:00:00'), isActive: true, repeatUntil: new Date('2016-02-02T00:00:00'), isSelected: false}, {date: new Date('2016-01-05T00:00:00'), isActive: false, repeatUntil: new Date('2016-01-02T00:00:00'), isSelected: false},{date: new Date('2016-01-02T00:00:00'), isActive: true, repeatUntil: new Date('2016-02-02T00:00:00'), isSelected: false}, {date: new Date('2016-01-05T00:00:00'), isActive: false, repeatUntil: new Date('2016-01-02T00:00:00'), isSelected: false},{date: new Date('2016-01-02T00:00:00'), isActive: true, repeatUntil: new Date('2016-02-02T00:00:00'), isSelected: false}, {date: new Date('2016-01-05T00:00:00'), isActive: false, repeatUntil: new Date('2016-01-02T00:00:00'), isSelected: false},{date: new Date('2016-01-02T00:00:00'), isActive: true, repeatUntil: new Date('2016-02-02T00:00:00'), isSelected: false}, {date: new Date('2016-01-05T00:00:00'), isActive: false, repeatUntil: new Date('2016-01-02T00:00:00'), isSelected: false},{date: new Date('2016-01-02T00:00:00'), isActive: true, repeatUntil: new Date('2016-02-02T00:00:00'), isSelected: false}, {date: new Date('2016-01-05T00:00:00'), isActive: false, repeatUntil: new Date('2016-01-02T00:00:00'), isSelected: false}, ]
-  const [reminderList, setReminderList] = useState<ReminderElement[]>(reminderListInit);
-  StorageService.save(reminderListInit);
+  const [reminderList, setReminderList] = useState<ReminderElement[]>([]);
 
   useEffect(() => {
     StorageService.get().then((reminders : ReminderElement[]) => {
-      setReminderList(reminders);
+      setLoading(false)
+      if(reminders) { setReminderList(reminders); }
     }).catch((error) => {
       console.log(error);
+      setLoading(false)
     })
   }, [])
 
   useEffect(() => {
-    StorageService.save(reminderList);
-  }, [setReminderList])
+    if (!loading) {
+      StorageService.save(reminderList);
+    }
+  }, [reminderList])
+
+  const toggleEditing = () => {
+    setEditing(!isEditing);
+  }
+
+  const deleteElements = () => {
+    setReminderList(reminderList.filter((elem) => !elem.isSelected));
+    toggleEditing();
+  }
 
   const styles = StyleSheet.create({
     container: {
@@ -45,11 +58,7 @@ export default function App() {
 
   return (
     <Provider theme={theme}>
-      <Appbar.Header style={{justifyContent: "space-between", flexDirection: "row"}}>
-        <Appbar.Action icon="pencil" onPress={() => {setEditing(!isEditing)}} />
-        <Appbar.Content style={{flex: 3, alignItems: "center"}} title="Reminder" />
-        <Appbar.Action icon="plus" onPress={() => {}} />
-      </Appbar.Header>
+      <Header isEditing={isEditing} toggleEditing={toggleEditing} deleteElements={deleteElements}/>
       <View style={styles.container}>
         <View style={{flexDirection:'row', flex: 1}}>
           <ReminderList isEditing={isEditing} reminderList={reminderList} setEditingElement={setEditingElement} setReminderList={setReminderList}/>
