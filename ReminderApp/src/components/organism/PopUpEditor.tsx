@@ -1,7 +1,7 @@
 import BottomSheet from "@gorhom/bottom-sheet";
 import { useEffect, useRef } from "react";
-import { Platform, Switch, View } from "react-native";
-import { Button, Text, useTheme } from "react-native-paper";
+import { View } from "react-native";
+import { Button, useTheme } from "react-native-paper";
 import Picker from "../../Picker";
 import DatePicker from "../DatePicker";
 
@@ -56,20 +56,7 @@ const PopUpEditor = ({editingElement, setEditingElement, reminders} : props) => 
                 time={editingElement.date} 
                 setTime={setTimeForEditigElement} 
               />
-              <View>
-                <Text variant='bodyLarge'>Repeat</Text>
-                <Switch 
-                  style={{ 
-                    transform: [{ scaleX: Platform.OS === "ios" ? 1 : 1.75 }, { scaleY: Platform.OS === "ios" ? 1 : 1.75 }],
-                  }}
-                  thumbColor={theme.colors.onPrimary} 
-                  trackColor={{true: theme.colors.primary, false: theme.colors.surfaceVariant}} 
-                  value={editingElement.isActive} 
-                  onValueChange={() => {
-                    setEditingElement({...editingElement, isActive: !editingElement.isActive})
-                  }}
-                />
-              </View>
+              
               <DatePicker 
                 editingElement={editingElement} 
                 setEditingElement={setEditingElement} 

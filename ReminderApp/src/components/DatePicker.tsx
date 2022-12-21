@@ -13,7 +13,7 @@ const DatePicker = ({editingElement, setEditingElement} : props) => {
     return (
         <View>
             {
-                new Array(5).map((index : number) => {
+                new Array(5).fill(() => {}).map((index : number) => {
                     return (
                         <View>
                             <Text>
