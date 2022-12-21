@@ -22,7 +22,7 @@ function ReminderElement({setEditingElement, reminderElement, repeatAmount, togg
   }
 
   return (
-        <Card style={{marginBottom: "4%"}} onPress={() => {setEditingElement(reminderElement);}}>
+        <Card style={{marginBottom: "4%"}} onPress={() => {setEditingElement(reminderElement);}} key={moment(reminderElement.date).format("dd-mm-yyyy")}>
           <View style={{padding: '5%', flexDirection: 'row', justifyContent: 'space-between'}}>
             <Card.Content>
               <View style={{flexDirection: 'row'}}>

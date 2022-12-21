@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react'
 import moment from 'moment';
-import { Platform, StyleSheet, Switch, View } from "react-native";
-import { MD3DarkTheme, Surface, useTheme, Text, Card, Title, Paragraph, Button, Checkbox} from 'react-native-paper';
+import React from 'react';
+import { Platform, View } from "react-native";
+import { Card, Checkbox, Text, useTheme } from 'react-native-paper';
 
 type props = {
   reminderElement : ReminderElement;
@@ -13,7 +13,7 @@ function EditReminderElement({reminderElement, repeatAmount, toggleIsSelected} :
 
   const theme = useTheme();
   return (
-        <Card style={{marginBottom: "4%"}} onPress={toggleIsSelected}>
+        <Card style={{marginBottom: "4%"}} onPress={toggleIsSelected} key={moment(reminderElement.date).format("dd-mm-yyyy")}>
           <View style={{padding: '5%', flexDirection: 'row', justifyContent: 'space-between'}}>
           <View style={{
                         justifyContent: 'center', paddingLeft: '5%',

@@ -1,10 +1,14 @@
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
-import translation from "./de/translation.json";
+import translationDE from "./de/translation.json";
+import translationEN from "./en/translation.json";
 
 export const resources = {
   de: {
-    translation,
+    translationDE,
+  },
+  en: {
+    translationEN,
   },
 } as const;
 
