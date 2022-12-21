@@ -4,33 +4,25 @@ import { Platform, Switch, View } from "react-native";
 import { Card, Text, useTheme } from 'react-native-paper';
 
 type props = {
-  setEditingElement : (editingElement : ReminderElement) => void;
+  setEditingElement : (reminderElement : ReminderElement) => void;
+  reminderElement : ReminderElement;
+  repeatAmount : number;
+  toggleIsActive : () => void;
 }
 
-function ReminderElement({setEditingElement} : props) {
-
-  const reminderElement1 : ReminderElement = {date: new Date('2016-01-02T00:00:00'), isActive: true, repeatUntil: new Date('2016-02-02T00:00:00'), isSelected: false}
-  const reminderElement2 : ReminderElement = {date: new Date('2016-01-05T00:00:00'), isActive: false, repeatUntil: new Date('2016-01-02T00:00:00'), isSelected: false}
-
-  const [reminderList, setReminderList] = React.useState<ReminderElement[]>([reminderElement1,reminderElement2]);
-
+function ReminderElement({setEditingElement, reminderElement, repeatAmount, toggleIsActive} : props) {
   const theme = useTheme();
+
+  let color = {...theme.colors};
+
+  if(!reminderElement.isActive){
+    color.onPrimaryContainer = theme.colors.surfaceVariant;
+    color.primaryContainer = theme.colors.surfaceVariant;
+    color.onPrimary = theme.colors.outline;
+  }
+
   return (
-    <View style={{flex: 1, flexDirection: 'column', padding: '3%'}}>
-      {reminderList && reminderList.map((reminderElement : ReminderElement, index : number) => {
-
-        let color = {...theme.colors};
-
-        if(!reminderList[index].isActive && reminderElement && reminderList[index]){
-          color.onPrimaryContainer = theme.colors.surfaceVariant;
-          color.primaryContainer = theme.colors.surfaceVariant;
-          color.onPrimary = theme.colors.outline;
-        }
-
-        const repeatAmount = reminderElement.repeatUntil.getMonth() - reminderElement.date.getMonth();
-
-        return (
-        <Card style={{marginTop: "3%"}} onPress={() => {setEditingElement(reminderList[index]);}}>
+        <Card style={{marginBottom: "4%"}} onPress={() => {setEditingElement(reminderElement);}}>
           <View style={{padding: '5%', flexDirection: 'row', justifyContent: 'space-between'}}>
             <Card.Content>
               <View style={{flexDirection: 'row'}}>
@@ -52,16 +44,11 @@ function ReminderElement({setEditingElement} : props) {
                 thumbColor={color.onPrimary} 
                 trackColor={{true: theme.colors.primary, false: theme.colors.surfaceVariant}} 
                 value={reminderElement.isActive} 
-                onValueChange={() => {
-                  reminderList[index].isActive = !reminderElement.isActive;
-                  setReminderList([...reminderList]);
-                }}
+                onValueChange={toggleIsActive}
               />
             </View>
           </View>
-        </Card>)
-      })}
-    </View>
+        </Card>
   )
 }
 
