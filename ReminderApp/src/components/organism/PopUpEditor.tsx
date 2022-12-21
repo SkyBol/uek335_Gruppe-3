@@ -23,13 +23,16 @@ const PopUpEditor = ({open, setOpen, editingElement, setEditingElement, reminder
         sheetRef.current.expand();
       } else {
         sheetRef.current.close();
+        if (editingElement) {
+          setEditingElement(null);
+        }
       }
     }, [open]);
 
     useEffect(() => {
       if (editingElement) {
         setOpen(true);
-      } else {
+      } else if (open) {
         setOpen(false);
       }
     }, [editingElement])
