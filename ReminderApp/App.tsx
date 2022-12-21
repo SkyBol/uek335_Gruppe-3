@@ -1,13 +1,17 @@
 import { StatusBar } from "expo-status-bar";
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 import { Appbar, MD3DarkTheme, Provider } from "react-native-paper";
+import "./i18n/config";
 import ReminderList from "./src/ReminderList";
+import NotificationService from "./src/service/NotificationService";
 import StorageService from "./src/service/StorageService";
 
 export default function App() {
   const [editingElement, setEditingElement] = useState<ReminderElement | null>(null);
   const [isEditing, setEditing] = useState<boolean>(false);
+  const { t } = useTranslation();
 
   const theme = {
     ...MD3DarkTheme,
@@ -28,6 +32,7 @@ export default function App() {
 
   useEffect(() => {
     StorageService.save(reminderList);
+    NotificationService.send();
   }, [setReminderList])
 
   const styles = StyleSheet.create({
