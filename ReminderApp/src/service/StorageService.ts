@@ -1,13 +1,14 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
+const storageKey = "@reminders"
 
 const StorageService = {
-    save: async (key : string, value : string) => {
-        await AsyncStorage.setItem(key, value);
+    save: async (reminders : ReminderElement[]) => {
+        await AsyncStorage.setItem(storageKey, JSON.stringify(reminders));
     },
-    get: async (key : string) => {
-        let a =  await AsyncStorage.getItem(key);
-        return a;
+    get: async () : Promise<ReminderElement[]> => {
+        let reminders : string = await AsyncStorage.getItem(storageKey);
+        return JSON.parse(reminders);
     }
 }
 

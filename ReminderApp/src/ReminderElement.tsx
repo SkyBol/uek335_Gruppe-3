@@ -1,9 +1,13 @@
-import React, { useEffect } from 'react'
 import moment from 'moment';
-import { Dimensions, Platform, StyleSheet, Switch, View } from "react-native";
-import { MD3DarkTheme, Surface, useTheme, Text, Card, Title, Paragraph, Button} from 'react-native-paper';
+import React from 'react';
+import { Platform, Switch, View } from "react-native";
+import { Card, Text, useTheme } from 'react-native-paper';
 
-function ReminderElement() {
+type props = {
+  setEditingElement : (editingElement : ReminderElement) => void;
+}
+
+function ReminderElement({setEditingElement} : props) {
 
   const reminderElement1 : ReminderElement = {date: new Date('2016-01-02T00:00:00'), isActive: true, repeatUntil: new Date('2016-02-02T00:00:00'), isSelected: false}
   const reminderElement2 : ReminderElement = {date: new Date('2016-01-05T00:00:00'), isActive: false, repeatUntil: new Date('2016-01-02T00:00:00'), isSelected: false}
@@ -26,7 +30,7 @@ function ReminderElement() {
         const repeatAmount = reminderElement.repeatUntil.getMonth() - reminderElement.date.getMonth();
 
         return (
-        <Card style={{marginTop: "3%"}}>
+        <Card style={{marginTop: "3%"}} onPress={() => {setEditingElement(reminderList[index]);}}>
           <View style={{padding: '5%', flexDirection: 'row', justifyContent: 'space-between'}}>
             <Card.Content>
               <View style={{flexDirection: 'row'}}>

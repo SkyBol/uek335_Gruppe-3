@@ -1,32 +1,68 @@
-import BottomSheet, { BottomSheetView } from "@gorhom/bottom-sheet";
-import { useRef } from "react";
+import BottomSheet from "@gorhom/bottom-sheet";
+import { useEffect, useRef, useState } from "react";
 import { View } from "react-native";
-import { Button } from "react-native-paper";
+import { Button, useTheme } from "react-native-paper";
 import Picker from "../../Picker";
+import StorageService from "../../service/StorageService";
 
 type props = {
     open : boolean;
     setOpen : (open : boolean) => void;
+    editingElement : ReminderElement | null;
+    setEditingElement : (editingElement : ReminderElement) => void;
+    reminders : ReminderElement[];
 }
 
-const PopUpEditor = ({open, setOpen} : props) => {
+const PopUpEditor = ({open, setOpen, editingElement, setEditingElement, reminders} : props) => {
     const sheetRef = useRef<BottomSheet>(null);
-    const snapPoints = ["97%"]
+    const [time, setTime] = useState<Date>(new Date());
+    const theme = useTheme();
+
+    useEffect(() => {
+      if (open) {
+        sheetRef.current.expand();
+      } else {
+        sheetRef.current.close();
+      }
+    }, [open]);
+
+    useEffect(() => {
+      if (editingElement) {
+        setOpen(true);
+      } else {
+        setOpen(false);
+      }
+    }, [editingElement])
+
+    const cancel = () => {
+      setOpen(false);
+    }
+    const save = () => {
+      let newReminders : ReminderElement[] = [...reminders];
+      if (newReminders.indexOf(editingElement) === -1) {
+        StorageService.save([...newReminders, editingElement]);
+      } else {
+        
+      }
+    }
 
     return (
         <BottomSheet
           ref={sheetRef}
           enablePanDownToClose={true}
-          snapPoints={snapPoints}
-          onChange={(index) => {console.log(index)}}
+          snapPoints={["97%"]}
         >
-          <BottomSheetView>
-            <View style={{}}>
-                <Button>Cancel</Button>
-                <Button>Done</Button>
-                <Picker />
+          <View>
+            <View style={{padding: '5%', flexDirection: 'row', justifyContent: 'space-between'}}>
+                <Button onPress={cancel}>Cancel</Button>
+                <Button onPress={save}>Done</Button>
             </View>
-          </BottomSheetView>
+            <Picker 
+              mode={"time"} 
+              time={time} 
+              setTime={setTime} 
+            />
+          </View>
         </BottomSheet>
     )
 }
