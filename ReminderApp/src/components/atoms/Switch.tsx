@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { View } from 'react-native';
 import { Switch } from 'react-native-paper';
 
 const MyComponent = () => {

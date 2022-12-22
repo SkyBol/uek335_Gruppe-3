@@ -4,10 +4,10 @@ import { useEffect, useState } from "react";
 import { StyleSheet, View } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { MD3DarkTheme, Provider } from "react-native-paper";
+import { Header } from "react-native/Libraries/NewAppScreen";
 import "./i18n/config";
-import PopUpEditor from "./src/components/organism/PopUpEditor";
-import Header from "./src/Header";
-import ReminderList from "./src/ReminderList";
+import PopUpEditor from "./src/components/organisms/PopUpEditor";
+import ReminderList from "./src/components/organisms/ReminderList";
 import NotificationService from "./src/service/NotificationService";
 import StorageService from "./src/service/StorageService";
 

@@ -5,8 +5,8 @@ import { useTranslation } from "react-i18next";
 import { Platform, Text, View } from "react-native";
 import { Switch } from "react-native-gesture-handler";
 import { Button, useTheme } from "react-native-paper";
-import Picker from "../../Picker";
 import DatePicker from "../DatePicker";
+import Picker from "../molecules/Picker";
 
 type props = {
     editingElementIndex : number | null;

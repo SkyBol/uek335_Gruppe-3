@@ -1,8 +1,7 @@
 import moment, { Moment } from "moment";
-import { useEffect } from "react";
-import { Text, View } from "react-native";
+import { View } from "react-native";
 import { useTheme } from "react-native-paper";
-import Day from "./Day";
+import Day from "./atoms/Day";
 
 
 type props = {

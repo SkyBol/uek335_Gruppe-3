@@ -1,9 +1,8 @@
-import moment from 'moment';
-import { Moment } from 'moment';
-import React from 'react'
+import moment, { Moment } from 'moment';
+import React from 'react';
 import { View } from "react-native";
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { Button, Text, useTheme } from 'react-native-paper';
+import { Text, useTheme } from 'react-native-paper';
 
 type props = {
   index : number;

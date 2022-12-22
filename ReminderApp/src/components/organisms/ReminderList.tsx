@@ -1,19 +1,8 @@
 import React, { useEffect } from "react";
-import moment from "moment";
-import { Platform, ScrollView, StyleSheet, Switch, View } from "react-native";
-import {
-  MD3DarkTheme,
-  Surface,
-  useTheme,
-  Text,
-  Card,
-  Title,
-  Paragraph,
-  Button,
-  Checkbox,
-} from "react-native-paper";
-import ReminderElement from "./ReminderElement";
-import EditReminderElement from "./EditReminderElement";
+import { ScrollView } from "react-native";
+import { useTheme } from "react-native-paper";
+import EditReminderElement from "../molecules/EditReminderElement";
+import ReminderElement from "../molecules/ReminderElement";
 
 type props = {
   setEditingElementIndex: (reminderElementIndex: number) => void;
