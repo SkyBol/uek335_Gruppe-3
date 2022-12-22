@@ -29,7 +29,7 @@ function EditReminderElement({reminderElement, repeatAmount, toggleIsSelected} :
                 <Text variant='headlineSmall' style={{color: theme.colors.onPrimaryContainer}}>{moment(reminderElement.date).format("YYYY")}</Text>
               </View>
               <View style={{flexDirection: 'row'}}>
-                <Text variant='bodyLarge' style={{color: theme.colors.primaryContainer}}>{moment(reminderElement.date).format("ddd, hh:mm")}</Text>
+                <Text variant='bodyLarge' style={{color: theme.colors.primaryContainer}}>{moment(reminderElement.date).format("ddd, HH:mm")}</Text>
                 {(reminderElement && (0 < repeatAmount)) && 
                   <Text variant='bodyLarge' style={{color: theme.colors.primaryContainer}}> | Repeat: {repeatAmount}</Text>
                 }

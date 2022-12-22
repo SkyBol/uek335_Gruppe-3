@@ -16,13 +16,16 @@ import ReminderElement from "./ReminderElement";
 import EditReminderElement from "./EditReminderElement";
 
 type props = {
-  setEditingElement: (reminderElement: ReminderElement) => void;
+  setEditingElementIndex: (reminderElementIndex: number) => void;
   setReminderList: (reminderElement: ReminderElement[]) => void;
   reminderList: ReminderElement[];
   isEditing: boolean;
 };
 
-function ReminderList({setEditingElement,setReminderList,reminderList,isEditing}: props) {
+function ReminderList({setEditingElementIndex,setReminderList,reminderList,isEditing}: props) {
+
+  const theme = useTheme();
+
   useEffect(() => {
     setReminderList(reminderList.map((elem) => {return {...elem, isSelected: false}}));
   }, [isEditing])
@@ -34,9 +37,11 @@ function ReminderList({setEditingElement,setReminderList,reminderList,isEditing}
             let repeatAmount = 0;
             if (reminderElement.repeatUntil) {
               repeatAmount =
-              reminderElement.repeatUntil.getMonth()! -
-              reminderElement.date.getMonth()!;
+              Number(reminderElement.repeatUntil.getMonth()) -
+              Number(reminderElement.date.getMonth());
             }
+            console.log(reminderElement.repeatUntil.getMonth(), "rep")
+            console.log(reminderElement.date.getMonth(), "date")
 
             const toggleIsSelected = () => {
               reminderList[index].isSelected = !reminderElement.isSelected;
@@ -55,10 +60,11 @@ function ReminderList({setEditingElement,setReminderList,reminderList,isEditing}
                 toggleIsSelected={toggleIsSelected}
               /> :
               <ReminderElement
-                setEditingElement={setEditingElement}
+                setEditingElementIndex={setEditingElementIndex}
                 reminderElement={reminderElement}
                 repeatAmount={repeatAmount}
                 toggleIsActive={toggleIsActive}
+                index={index}
               />
             );
           }

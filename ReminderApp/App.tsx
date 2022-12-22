@@ -5,9 +5,12 @@ import { Appbar, MD3DarkTheme, Provider } from "react-native-paper";
 import ReminderList from "./src/ReminderList";
 import Header from "./src/Header";
 import StorageService from "./src/service/StorageService";
+import PopUpEditor from "./src/components/organism/PopUpEditor";
+import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 export default function App() {
-  const [editingElement, setEditingElement] = useState<ReminderElement | null>(null);
+  const [editingElementIndex, setEditingElementIndex] = useState<number | null>(null);
   const [isEditing, setEditing] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
 
@@ -55,20 +58,23 @@ export default function App() {
 
   return (
     <Provider theme={theme}>
-      <Header isEditing={isEditing} toggleEditing={toggleEditing} deleteElements={deleteElements}/>
-      <View style={styles.container}>
-        <View style={{flexDirection:'row', flex: 1}}>
-          <ReminderList isEditing={isEditing} reminderList={reminderList} setEditingElement={setEditingElement} setReminderList={setReminderList}/>
-        </View>
-        <StatusBar style="auto" />
-      </View>
-      {/* <PopUpEditor 
-          open={isEditScreenOpen}
-          setOpen={setIsEditScreenOpen}
-          editingElement={editingElement}
-          setEditingElement={setEditingElement}
-          reminders={[]}
-        /> */}
+      <GestureHandlerRootView style={{ flex: 1 }}>
+        <BottomSheetModalProvider>
+          <Header isEditing={isEditing} toggleEditing={toggleEditing} deleteElements={deleteElements} setEditingElementIndex={setEditingElementIndex}/>
+          <View style={styles.container}>
+            <View style={{flexDirection:'row', flex: 1}}>
+              <ReminderList isEditing={isEditing} reminderList={reminderList} setEditingElementIndex={setEditingElementIndex} setReminderList={setReminderList}/>
+            </View>
+            <StatusBar style="auto" />
+          </View>
+          <PopUpEditor 
+              editingElementIndex={editingElementIndex}
+              setEditingElementIndex={setEditingElementIndex}
+              reminders={reminderList}
+              setReminders={setReminderList}
+            />
+        </BottomSheetModalProvider>
+      </GestureHandlerRootView>
     </Provider>
   );
 }
