@@ -37,11 +37,9 @@ function ReminderList({setEditingElementIndex,setReminderList,reminderList,isEdi
             let repeatAmount = 0;
             if (reminderElement.repeatUntil) {
               repeatAmount =
-              Number(reminderElement.repeatUntil.getMonth()) -
-              Number(reminderElement.date.getMonth());
+              (reminderElement.repeatUntil.getMonth() + (12 * reminderElement.repeatUntil.getFullYear()) -
+              ((reminderElement.date.getMonth())  + (12 * reminderElement.date.getFullYear())));
             }
-            console.log(reminderElement.repeatUntil.getMonth(), "rep")
-            console.log(reminderElement.date.getMonth(), "date")
 
             const toggleIsSelected = () => {
               reminderList[index].isSelected = !reminderElement.isSelected;

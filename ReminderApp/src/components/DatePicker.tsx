@@ -1,4 +1,3 @@
-import { ignoredYellowBox } from "console";
 import moment, { Moment } from "moment";
 import { useEffect } from "react";
 import { Text, View } from "react-native";

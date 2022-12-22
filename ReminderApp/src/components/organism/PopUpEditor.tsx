@@ -23,7 +23,6 @@ const PopUpEditor = ({editingElementIndex, setEditingElementIndex, reminders, se
 
     useEffect(() => {
       if (editingElementIndex || editingElementIndex === 0) {
-        console.log(editingElementIndex)
         //setReminders();
         if (editingElementIndex === -1) {
           setEditingElement({
@@ -37,7 +36,6 @@ const PopUpEditor = ({editingElementIndex, setEditingElementIndex, reminders, se
         }
         sheetRef.current.expand();
       } else {
-        console.log(editingElementIndex)
         setEditingElement(null);
         sheetRef.current.close();
       }
@@ -58,6 +56,9 @@ const PopUpEditor = ({editingElementIndex, setEditingElementIndex, reminders, se
     }
 
     const toggleIsActive = () => {
+      if(isActive){
+        setEditingElement({...editingElement, repeatUntil: editingElement.date})
+      }
       setActive(!isActive);
     }
 
@@ -104,7 +105,7 @@ const PopUpEditor = ({editingElementIndex, setEditingElementIndex, reminders, se
                   thumbColor={theme.colors.onPrimary} 
                   trackColor={{true: theme.colors.primary, false: theme.colors.surfaceVariant}} 
                   value={isActive} 
-                onValueChange={toggleIsActive}
+                  onValueChange={toggleIsActive}
                 />
               </View>
               <View>
