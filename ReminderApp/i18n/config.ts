@@ -14,7 +14,6 @@ export const resources = {
 
 i18n.use(initReactI18next).init({
   compatibilityJSON: 'v3',
-  lng: "de",
   fallbackLng: 'en',
   interpolation: {
     escapeValue: false, // not needed for react as it escapes by default

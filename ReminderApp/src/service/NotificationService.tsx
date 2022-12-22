@@ -70,10 +70,20 @@ const NotificationService = {
                 body: t("notification.body")
             },
             trigger: {
-                seconds: 2
+                minute: reminder.date.getMinutes(),
+                hour: reminder.date.getHours(),
+                day: reminder.date.getDay(),
+                month: reminder.date.getMonth(),
+                year: reminder.date.getFullYear(),
             },
         });
     },
+    /**
+     * Clears all notifications
+     */
+    clear: async () => {
+        return await Notifications.cancelAllScheduledNotificationsAsync();
+    }
 }
 
 export default NotificationService;

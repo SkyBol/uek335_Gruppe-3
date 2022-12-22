@@ -41,10 +41,18 @@ export default function App() {
 
   /**
    * Everytime the reminderList gets updated, this useEffect
-   * saves the new Array to Storage
+   * saves the new Array to Storage.
+   * Also sets all reminders to post.
    */
   useEffect(() => {
+    /**
+     * To avoid setting storage before it is loaded
+     */
     if (!loading) {
+      NotificationService.clear();
+      reminderList.forEach((elem) => {
+        NotificationService.postNotification(elem);
+      });
       StorageService.save(reminderList);
     }
   }, [reminderList])

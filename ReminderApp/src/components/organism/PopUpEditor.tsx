@@ -1,7 +1,7 @@
 import BottomSheet from "@gorhom/bottom-sheet";
-import { t } from "i18next";
 import moment from "moment";
 import { useEffect, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Platform, Text, View } from "react-native";
 import { Switch } from "react-native-gesture-handler";
 import { Button, useTheme } from "react-native-paper";
@@ -20,6 +20,7 @@ const PopUpEditor = ({editingElementIndex, setEditingElementIndex, reminders, se
     const sheetRef = useRef<BottomSheet>(null);
     const theme = useTheme();
     const [isActive, setActive] = useState<boolean>(false);
+    const { t } = useTranslation();
 
     useEffect(() => {
       if (editingElementIndex || editingElementIndex === 0) {
