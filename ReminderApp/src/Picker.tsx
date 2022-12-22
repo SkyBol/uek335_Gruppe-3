@@ -28,10 +28,11 @@ const Picker = ({mode, time, setTime} : props) => {
                 <Button 
                     onPress={() => setShow(!show)} 
                     style={{
-                        backgroundColor: theme.colors.primaryContainer
+                        backgroundColor: theme.colors.primaryContainer,
+                        marginHorizontal: "3%"
                     }}
                 >
-                    { moment(time).format("hh:mm") }
+                    { mode === "time" ? moment(time).format("HH:mm") : moment(time).format("DD.MM.yyyy") }
                 </Button>
             </View>
         }
@@ -43,6 +44,8 @@ const Picker = ({mode, time, setTime} : props) => {
                 mode={mode}
                 is24Hour={true}
                 onChange={onChange}
+                textColor={theme.colors.secondary}
+                themeVariant={'dark'}
             />
         )}
     </View>

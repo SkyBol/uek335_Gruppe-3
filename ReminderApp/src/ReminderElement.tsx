@@ -4,13 +4,14 @@ import { Platform, Switch, View } from "react-native";
 import { Card, Text, useTheme } from 'react-native-paper';
 
 type props = {
-  setEditingElement : (reminderElement : ReminderElement) => void;
+  setEditingElementIndex : (reminderElementIndex : number) => void;
   reminderElement : ReminderElement;
   repeatAmount : number;
   toggleIsActive : () => void;
+  index : number;
 }
 
-function ReminderElement({setEditingElement, reminderElement, repeatAmount, toggleIsActive} : props) {
+function ReminderElement({setEditingElementIndex, reminderElement, repeatAmount, toggleIsActive, index} : props) {
   const theme = useTheme();
 
   let color = {...theme.colors};
@@ -22,7 +23,7 @@ function ReminderElement({setEditingElement, reminderElement, repeatAmount, togg
   }
 
   return (
-        <Card style={{marginBottom: "4%"}} onPress={() => {setEditingElement(reminderElement);}} key={moment(reminderElement.date).format("dd-mm-yyyy")}>
+        <Card style={{marginBottom: "4%"}} onPress={() => {setEditingElementIndex(index);}}>
           <View style={{padding: '5%', flexDirection: 'row', justifyContent: 'space-between'}}>
             <Card.Content>
               <View style={{flexDirection: 'row'}}>
@@ -30,7 +31,7 @@ function ReminderElement({setEditingElement, reminderElement, repeatAmount, togg
                 <Text variant='headlineSmall' style={{color: color.onPrimaryContainer}}>{moment(reminderElement.date).format("YYYY")}</Text>
               </View>
               <View style={{flexDirection: 'row'}}>
-                <Text variant='bodyLarge' style={{color: color.primaryContainer}}>{moment(reminderElement.date).format("ddd, hh:mm")}</Text>
+                <Text variant='bodyLarge' style={{color: color.primaryContainer}}>{moment(reminderElement.date).format("ddd, HH:mm")}</Text>
                 {(reminderElement && (0 < repeatAmount)) && 
                   <Text variant='bodyLarge' style={{color: color.primaryContainer}}> | Repeat: {repeatAmount}</Text>
                 }

@@ -1,26 +1,31 @@
 import React from "react";
 import { View } from "react-native";
-import { Appbar } from "react-native-paper";
+import { Appbar, useTheme } from "react-native-paper";
+import ReminderElement from "./ReminderElement";
 
 type props = {
   isEditing: boolean;
   toggleEditing: () => void;
   deleteElements: () => void;
+  setEditingElementIndex: (editingElementIndex : number) => void;
 };
 
-function Header({ isEditing, toggleEditing, deleteElements }: props) {
+function Header({ isEditing, toggleEditing, deleteElements, setEditingElementIndex }: props) {
+
+  const theme = useTheme();
+
   return (
     <View>
       {!isEditing ? (
         <Appbar.Header
-          style={{ justifyContent: "space-between", flexDirection: "row" }}
+          style={{ justifyContent: "space-between", flexDirection: "row"}}
         >
           <Appbar.Action icon="pencil" onPress={toggleEditing} />
           <Appbar.Content
             style={{ flex: 3, alignItems: "center" }}
             title="Reminder"
           />
-          <Appbar.Action icon="plus" onPress={() => {}} />
+          <Appbar.Action icon="plus" onPress={() => {setEditingElementIndex(-1)}} />
         </Appbar.Header>
       ) : (
         <Appbar.Header
