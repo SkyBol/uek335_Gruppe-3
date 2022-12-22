@@ -2,9 +2,9 @@ import BottomSheet from "@gorhom/bottom-sheet";
 import moment from "moment";
 import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Platform, Text, View } from "react-native";
+import { Platform, View } from "react-native";
 import { Switch } from "react-native-gesture-handler";
-import { Button, useTheme } from "react-native-paper";
+import { Button, Text, useTheme } from "react-native-paper";
 import DatePicker from "../DatePicker";
 import Picker from "../molecules/Picker";
 
@@ -98,8 +98,10 @@ const PopUpEditor = ({editingElementIndex, setEditingElementIndex, reminders, se
                 
                 />
               </View>
+              <View style={{alignSelf: "center", marginTop: "3%", marginBottom: "3%"}}>
+                <Text variant="headlineLarge">{ t("editor.repeat") }</Text>
+              </View>
               <View style={{alignSelf: "center"}}>
-                <Text>{ t("editor.repeat") }</Text>
                 <Switch 
                   style={{ 
                     transform: [{ scaleX: Platform.OS === "ios" ? 1 : 1.75 }, { scaleY: Platform.OS === "ios" ? 1 : 1.75 }],

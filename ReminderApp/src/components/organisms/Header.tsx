@@ -1,7 +1,9 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { View } from "react-native";
-import { Appbar, useTheme } from "react-native-paper";
+import { Appbar } from "react-native-paper";
+import "../../../i18n/config";
+
 
 type props = {
   isEditing: boolean;
@@ -11,7 +13,6 @@ type props = {
 };
 
 function Header({ isEditing, toggleEditing, deleteElements, setEditingElementIndex }: props) {
-  const theme = useTheme();
   const { t } = useTranslation();
 
   return (
@@ -34,7 +35,7 @@ function Header({ isEditing, toggleEditing, deleteElements, setEditingElementInd
           <Appbar.Action icon="arrow-left" onPress={toggleEditing} />
           <Appbar.Content
             style={{ flex: 3, alignItems: "center" }}
-            title="Edit"
+            title={t("edit")}
           />
           <Appbar.Action icon="delete" onPress={deleteElements} />
         </Appbar.Header>
