@@ -1,3 +1,10 @@
 {
-    "title": "Erinnerung"
+    "title": "Erinnerung",
+    "notification": {
+        "title": "Abacus - Fertigmeldung",
+        "body": "Vergiss nicht deine Fertigmeldung für das Ende dieses Monates einzureichen"
+    },
+    "editor": {
+        "repeat": "Wiederholend"
+    }
 }

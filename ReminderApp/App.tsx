@@ -1,7 +1,6 @@
 import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 import { StatusBar } from "expo-status-bar";
 import { useEffect, useState } from "react";
-import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { MD3DarkTheme, Provider } from "react-native-paper";
@@ -9,21 +8,24 @@ import "./i18n/config";
 import PopUpEditor from "./src/components/organism/PopUpEditor";
 import Header from "./src/Header";
 import ReminderList from "./src/ReminderList";
+import NotificationService from "./src/service/NotificationService";
 import StorageService from "./src/service/StorageService";
 
 export default function App() {
   const [editingElementIndex, setEditingElementIndex] = useState<number | null>(null);
   const [isEditing, setEditing] = useState<boolean>(false);
-  const { t } = useTranslation();
   const [loading, setLoading] = useState<boolean>(true);
 
   const theme = {
     ...MD3DarkTheme,
   }
 
-  //Only for testing -> remove after
   const [reminderList, setReminderList] = useState<ReminderElement[]>([]);
 
+  /**
+   * This useEffect loads the saved Reminders from Storage
+   * and prepares everything for the reminders to work
+   */
   useEffect(() => {
     StorageService.get().then((reminders : ReminderElement[]) => {
       setLoading(false)
@@ -31,9 +33,16 @@ export default function App() {
     }).catch((error) => {
       console.log(error);
       setLoading(false)
+    });
+    NotificationService.register().catch((error) => {
+      console.log(error);
     })
   }, [])
 
+  /**
+   * Everytime the reminderList gets updated, this useEffect
+   * saves the new Array to Storage
+   */
   useEffect(() => {
     if (!loading) {
       StorageService.save(reminderList);
