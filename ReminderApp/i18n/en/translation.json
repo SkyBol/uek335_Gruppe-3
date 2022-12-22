@@ -1,0 +1,11 @@
+{
+    "title": "Reminder",
+    "edit": "Edit",
+    "notification": {
+        "title": "Abacus - Report",
+        "body": "Don't forget to hand in your report for this month"
+    },
+    "editor": {
+        "repeat": "Repeatable"
+    }
+}
