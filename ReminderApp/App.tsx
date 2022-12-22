@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 import { MD3DarkTheme, Provider } from "react-native-paper";
 import "./i18n/config";
+import PopUpEditor from "./src/components/organism/PopUpEditor";
 import Header from "./src/Header";
 import ReminderList from "./src/ReminderList";
 import StorageService from "./src/service/StorageService";
@@ -65,13 +66,11 @@ export default function App() {
         </View>
         <StatusBar style="auto" />
       </View>
-      {/* <PopUpEditor 
-          open={isEditScreenOpen}
-          setOpen={setIsEditScreenOpen}
+      <PopUpEditor 
           editingElement={editingElement}
           setEditingElement={setEditingElement}
           reminders={[]}
-        /> */}
+        />
     </Provider>
   );
 }

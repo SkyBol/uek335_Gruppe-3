@@ -1,6 +1,7 @@
 import BottomSheet from "@gorhom/bottom-sheet";
 import { useEffect, useRef } from "react";
 import { View } from "react-native";
+import { Switch } from "react-native-gesture-handler";
 import { Button, useTheme } from "react-native-paper";
 import Picker from "../../Picker";
 import DatePicker from "../DatePicker";
@@ -61,6 +62,7 @@ const PopUpEditor = ({editingElement, setEditingElement, reminders} : props) => 
                 editingElement={editingElement} 
                 setEditingElement={setEditingElement} 
               />
+              <Switch></Switch>
             </View>
           )}
         </BottomSheet>
